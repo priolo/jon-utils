@@ -1,0 +1,36 @@
+{
+  "name": "jon-utils",
+  "version": "0.2.2",
+  "description": "generic utils",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "test": "jest dist",
+    "build": "cross-env NODE_ENV=production babel src -d dist --copy-files",
+    "build-watch": "cross-env NODE_ENV=development babel src -d dist -w -s --copy-files",
+    "pub": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priolo/jon-utils.git"
+  },
+  "author": "Iorio Ivano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/priolo/jon-utils/issues"
+  },
+  "homepage": "https://github.com/priolo/jon-utils#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.13.10",
+    "cross-env": "^7.0.3",
+    "jest": "^26.6.3"
+  },
+  "jest": {
+    "testURL": "http://localhost:5001"
+  }
+}
