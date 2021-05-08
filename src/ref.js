@@ -53,75 +53,8 @@ export function clone(obj) {
 }
 
 
-/**
- * restituisce un oggetto che è la differenza 
- * GESTIRE gli oggetti: Date e altri oggetti "nativi"
- * @param {object} obj1 
- * @param {object} obj2 
- */
-export function diff(obj1, obj2) {
+export function ignore(obj, ign )  {
 
-    // se sono primitive allora controlla se sono uguali e se lo sono restituisci null
-    if (!isObject(obj1) || !isObject(obj2)) {
-        return isEqual(obj1, obj2) ? null : obj2;
-    }
-
-    let ret = {};
-
-    for (let key in obj1) {
-        // se 2 ha la proprietà di 1 presa in esame
-        if (obj2.hasOwnProperty(key)) {
-            let res = diff(obj1[key], obj2[key]);
-
-            // metti la proprietà solo se ci sono differenze
-            if (res != null && Object.keys(res).length > 0) {
-                ret[key] = res;
-            }
-
-            // se non ce l'ha vuol dire che è stata cancellata
-        } else {
-            if (ret._deleted == null) ret._deleted = [];
-            ret._deleted.push(key);
-        }
-    }
-
-    // inserisci tutte le proprietà nuove
-    for (let key in obj2) {
-        if (obj1.hasOwnProperty(key)) continue;
-        ret[key] = obj2[key];
-    }
-
-    return ret;
-}
-
-/**
- * Aggiunge ad un json la differenza 
- * in maniera da ripristinare il valore precedente
- * @param {*} obj 
- * @param {*} diff 
- */
-export function add(obj, diff) {
-
-    if (!isObject(diff)) {
-        return diff;
-    }
-
-    let ret = {};
-
-    for (let key in diff) {
-        if (key == "_deleted") continue;
-        ret[key] = add(obj[key], diff[key]);
-    }
-
-    if (!isObject(obj)) return ret;
-
-    for (let key in obj) {
-        if (Object.keys(diff).some(k => k == key)) continue;
-        if (diff._deleted && diff._deleted.some(k => k == key)) continue;
-        ret[key] = obj[key];
-    }
-
-    return ret;
 }
 
 /**
