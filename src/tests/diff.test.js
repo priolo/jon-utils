@@ -1,46 +1,9 @@
 import {
-	merge, isObject, isEqualDeep,
-	cloneDeep, clone, diff,
-	add, diffArray, addArray,
-} from "../ref";
+	diffArray, addArray, diff, add
+} from "../diff";
 
 
 
-// test('diff', async () => {
-// 	const obj1 = {
-// 		par1: "invar",
-// 		par2: {
-// 			par2_1: "sub-invar",
-// 			par2_2: "sub-delete"
-// 		},
-// 		arr: ["arr-invar", "move", "arr-invar2", "arr-delete"],
-// 		par3: "delete"
-
-// 	}
-// 	const obj2 = {
-// 		par1: "invar",
-// 		par4: "ins",
-// 		par2: {
-// 			par2_1: "sub-invar",
-// 			par2_3: "sub-ins"
-// 		},
-// 		arr: ["arr-invar", "arr-invar2", "move"],
-
-// 	}
-// 	const deltaPre = {
-// 		_deleted: [	"par3" ],
-// 		par2: {
-// 			_deleted: [	"par2_2" ],
-// 			par2_3: "sub-ins"
-// 		},
-// 		par4: "ins",
-// 		arr: { '1': 'arr-invar2', '2': 'move', _deleted: [ '3' ] },
-// 	}
-// 	const delta = diff(obj1, obj2)
-
-// 	console.log(delta)
-// 	expect(deltaPre).toEqual(delta)
-// })
 
 
 
@@ -92,17 +55,48 @@ import {
 
 
 
-// come trasformare arr1 in arr2
-test('diff array', async () => {
-	const arr1 = ["item-invar", "item-deleted", { par: 1 }, "item-moved"]
-	const arr2 = ["item-invar", "item-insert", "item-moved", { par: 1 }]
 
-	const delta = diffArray(arr1, arr2)
+
+test('diff obj', async () => {
+	const obj1 = {
+		par1: "invar",
+		par2: {
+			par2_1: "sub-invar",
+			par2_2: "sub-delete"
+		},
+		arr: ["arr-invar", "move", "arr-invar2", "arr-delete"],
+		par3: "delete"
+
+	}
+	const obj2 = {
+		par1: "invar",
+		par4: "ins",
+		par2: {
+			par2_1: "sub-invar",
+			par2_3: "sub-ins"
+		},
+		arr: ["arr-invar", "arr-invar2", "move"],
+
+	}
+	// const deltaPre = {
+	// 	_deleted: [	"par3" ],
+	// 	par2: {
+	// 		_deleted: [	"par2_2" ],
+	// 		par2_3: "sub-ins"
+	// 	},
+	// 	par4: "ins",
+	// 	arr: { '1': 'arr-invar2', '2': 'move', _deleted: [ '3' ] },
+	// }
+	const delta = diff(obj1, obj2)
 	console.log(delta)
-	console.log(arr2)
-	const arr2Clone = addArray(arr1, delta)
-	console.log(arr2Clone)
+
+	const obj2Clone = add(obj1, delta)
+	console.log(obj2Clone)
+
+
+	expect(obj2).toEqual(obj2Clone)
 })
+
 
 
 

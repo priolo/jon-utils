@@ -1,6 +1,9 @@
-import * as ref from "./ref"
-
+import * as util from "./ref"
+import * as diff from "./diff"
+import * as explore from "./explore"
 
 export default {
-	ref
+	...util,
+	...diff,
+	...explore,
 }

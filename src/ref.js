@@ -53,12 +53,9 @@ export function clone(obj) {
 }
 
 
-export function ignore(obj, ign )  {
-
-}
-
 /**
  * Deep merge from two object
+ * not merge array
  */
 export function merge(from, to) {
     return Object.keys(from).reduce((merged, key) => {
