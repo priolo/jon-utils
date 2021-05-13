@@ -1,8 +1,8 @@
 /* eslint eqeqeq: "off" */
 
 import { addArray, diffArray } from "./diffArray";
-import { isEqual, isObject } from "./ref"
-
+import { isEqual } from "./equal"
+import { isObject } from "./isType"
 
 
 
@@ -26,7 +26,7 @@ export function diff(obj1, obj2) {
     }
 
     // se uno dei due è un array allora sono diversi!
-    if (Array.isArray(obj1) || Array.isArray(obj1)) {
+    if (Array.isArray(obj1) || Array.isArray(obj2)) {
         return obj2
     }
 
@@ -55,6 +55,7 @@ export function diff(obj1, obj2) {
         ret[key] = obj2[key];
     }
 
+    // se non ci sono differenze restituisci il "token" apposito altrimenti il risultato
     return Object.keys(ret).length == 0 ? diff.NO_DIFFERENCE_KEY : ret;
 }
 

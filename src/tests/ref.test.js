@@ -1,7 +1,4 @@
-import {
-	isObject, isEqualDeep,
-	cloneDeep, clone, merge
-} from "../ref";
+import { cloneDeep, clone, merge } from "../ref"
 
 
 test('merge', async () => {
@@ -11,26 +8,16 @@ test('merge', async () => {
 	expect(obj3).toEqual(
 		{ par1: -1, par2: { par2_1: -21, par2_5: -25 }, par3: 3, arr: [0, 1, 2] }
 	)
-})
-
-test('isObject', async () => {
-	expect(isObject("23")).toBeFalsy()
-	expect(isObject(23)).toBeFalsy()
-	expect(isObject(null)).toBeFalsy()
-	expect(isObject([1, 2, 3])).toBeTruthy()
-	expect(isObject({ name: "pippo" })).toBeTruthy()
-})
-
-test('isEqualDeep', async () => {
-	const obj1 = { par1: -1, par2: { par2_1: -21, par2_5: -25 }, arr: [0, 1, 2] }
-	const obj2 = { par1: -1, par2: { par2_1: -21, par2_5: -25 }, arr: [0, 1, 2] }
-	const obj3 = { par1: -1, par2: { par2_1: -21, par2_5: -26 }, arr: [0, 1, 2] }
-
-	expect(isEqualDeep(obj1, obj2)).toBeTruthy()
-	expect(isEqualDeep(obj1, obj3)).toBeFalsy()
-	expect(isEqualDeep(obj1, "pippo")).toBeFalsy()
-	expect(isEqualDeep("pippo", "pippo")).toBeTruthy()
-	expect(isEqualDeep("pippo", 33)).toBeFalsy()
+	let obj = merge({ name: "pippo" }, null)
+	expect(obj).toEqual({ name: "pippo" })
+	obj = merge(null, { name: "pippo" })
+	expect(obj).toEqual({ name: "pippo" })
+	obj = merge("pippo", "topolino")
+	expect(obj).toBe(null)
+	obj = merge(null, "pippo")
+	expect(obj).toBe(null)
+	obj = merge(null, null)
+	expect(obj).toBe(null)
 })
 
 test('cloneDeep', async () => {
@@ -46,13 +33,13 @@ test('clone', async () => {
 })
 
 test('merge', async () => {
-	const obj1 = { par3: 3, par2: { par2_1: 21, par2_2: 22 }, arr: [3,4] }
+	const obj1 = { par3: 3, par2: { par2_1: 21, par2_2: 22 }, arr: [3, 4] }
 	const obj2 = { par1: -1, par2: { par2_1: -21, par2_5: -25 }, arr: [0, 1, 2] }
-	const obj3 = merge(obj1,obj2)
+	const obj3 = merge(obj1, obj2)
 	expect(obj3).toEqual({
 		par1: -1,
-		par2: { par2_1: 21,  par2_2: 22, par2_5: -25 },
+		par2: { par2_1: 21, par2_2: 22, par2_5: -25 },
 		par3: 3,
-		arr: [3,4]
+		arr: [3, 4]
 	})
 })

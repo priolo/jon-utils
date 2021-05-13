@@ -1,5 +1,13 @@
-/* eslint eqeqeq: "off" */
+import { isEqualDeep } from "./equal"
 
+
+function find(arr, item, start, max = 6) {
+    for (let i = 0; i < arr.length && i < max; i++) {
+        const itemCur = arr[i]
+        if (isEqualDeep(item, itemCur)) return i
+    }
+    return -1
+}
 
 /**
  * restituisce le "regole" per trasformare arr1 in arr2
@@ -26,25 +34,25 @@ export function diffArray(a1, arr2) {
         }
 
         const item1 = arr1[i]
-        const index1in2 = arr2.indexOf(item1, i)
+        const index1in2 = find(arr2, item1, i)
 
         // è uguale: vado al prossimo
         if (index1in2 == i) {
             i++
             continue
 
-            // non c'e'...
+        // non c'e'...
         } else if (index1in2 == -1) {
             const item2 = arr2[i]
             // verifico che non sia da qualche altra parte in arr1
-            const index2in1 = arr1.indexOf(item2, i)
+            const index2in1 = find(arr1, item2, i)
             // non c'e': lo sostituisco con l'item di arr2
-            if ( index2in1== -1 ) {
+            if (index2in1 == -1) {
                 act = { type: "sub", from: i, val: item2 }
             // trovato: lo sposto nella posizione giusta
             } else {
                 act = { type: "mov", from: index2in1, to: i }
-            }           
+            }
             i++
             delta.push(act)
             exeArray(act, arr1)
@@ -103,7 +111,3 @@ export function addArray(a, delta) {
     delta.forEach(action => exeArray(action, arr))
     return arr
 }
-
-
-
-
