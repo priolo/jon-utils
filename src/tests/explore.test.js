@@ -40,7 +40,7 @@ test('explore array', async () => {
 // se non c'e' la path specificata non fare nulla
 test('no path', async () => {
 	const cloneObj1 = cloneDeep(obj1)
-	
+
 	exploreMap(cloneObj1, "no_exist").forEach(act => delete act.parent[act.key])
 	expect(cloneObj1).toEqual(obj1)
 })
@@ -62,8 +62,12 @@ test("include map", async () => {
 	//const ret = include(obj2, "arr1.param.id")
 
 	const ret = includeMap(obj2, [
-		"arr1.param",
+		"undefined",
+		null,
+		"arr1.param.id",
+		"arr1.param.name",
 		"par2.par2_1",
+		
 	])
 
 

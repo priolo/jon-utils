@@ -1,5 +1,5 @@
 /* eslint eqeqeq: "off" */
-import { isObjectStrict } from "./isType";
+import { isObject, isObjectStrict } from "./isType";
 
 
 /**
@@ -23,20 +23,38 @@ export function clone(obj) {
  * Deep merge from two object
  * not merge array
  */
-export function merge(from, to) {
-    const fromIsObj = isObjectStrict(from)
-    const toIsObj = isObjectStrict(to)
-    
-    if (!fromIsObj && !toIsObj) return null
-    if (fromIsObj && !toIsObj) return { ...from }
-    if (!fromIsObj && toIsObj) return { ...to }
+export function merge(obj1, obj2, replaceNulls = true) {
+    if ( replaceNulls ) {
+        if ( obj1==null && obj2!=null ) return obj2
+        if ( obj1!=null && obj2==null ) return obj1
+    }
+    // se ci sono primitive, non sono confrontabili, manda la secondna
+    if (!isObject(obj1) || !isObject(obj2)) return obj1
+    // se sono due array fai il merge con funzione apposita
+    if (Array.isArray(obj1) && Array.isArray(obj2)) return mergeArray(obj1, obj2)
+    // se uno dei due è un array e l'altro un oggetto non sono confrontabili
+    if (Array.isArray(obj1) || Array.isArray(obj2)) return obj1
 
-    return Object.keys(from).reduce((merged, key) => {
-        if (from[key] instanceof Object && !Array.isArray(from[key])) {
-            merged[key] = merge(from[key], merged[key] ?? {})
+    // sono due oggetti
+    return Object.keys(obj1).reduce((merged, key) => {
+        if ( obj2.hasOwnProperty(key) ) {
+            merged[key] = merge(obj1[key], obj2[key])
         } else {
-            merged[key] = from[key]
+            merged[key] = obj1[key]
         }
         return merged
-    }, { ...to })
+    }, { ...obj2 })
+}
+
+/**
+ * 
+ * @param {any[]} arr1 
+ * @param {any[]} arr2 
+ */
+export function mergeArray(arr1, arr2) {
+    const ret = []
+    for (let i = 0; i < arr1.length && i < arr2.length; i++) {
+        ret[i] = merge(arr1[i], arr2[i])
+    }
+    return ret.concat(arr1.length > arr2.length ? arr1.slice(arr2.length) : arr2.slice(arr1.length))
 }
