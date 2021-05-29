@@ -39,13 +39,13 @@ test('merge simple', async () => {
 	expect(obj).toEqual({ name: "pippo" })
 
 	obj = merge(null, { name: "pippo" })
-	expect(obj).toEqual(null)
+	expect(obj).toEqual({ name: "pippo" })
 
 	obj = merge("pippo", "topolino")
 	expect(obj).toBe("pippo")
 
 	obj = merge(null, "pippo")
-	expect(obj).toBe(null)
+	expect(obj).toBe("pippo")
 
 	obj = merge(null, null)
 	expect(obj).toBe(null)

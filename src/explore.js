@@ -1,20 +1,21 @@
 import { isString, isObject } from "./isType";
 import { merge } from "./ref";
 
-
+export const KEY_NOT_FOUND = "key-not-found"
 
 /**
- * Permette di eseguire un callback sui parametri indicati nelle paths
- * @param {*} obj oggetto su cui applicare il callback
- * @param {string[]} paths path dei parametri da prendere in considerazione
- * @param {Function} callback 
+ * Restituisce i riferimenti di tutte la "paths" trovate nell'albero delle "props" dell'oggetto "obj"
+ * @param {*} obj oggetto su cui fare la ricerca
+ * @param {string|string[]} paths path dei parametri da prendere in considerazione
+  * @return {object[]} un array di riferimenti che corrispondono alle "paths" passate  
+ * `[...{ error: KEY_NOT_FOUND, parent: obj, key }]`
  */
 export function exploreMap(obj, paths, withError=false) {
 	if (!Array.isArray(paths)) paths = [paths]
 	const ret = paths
 		.reduce((acc, path) => acc.concat(explore(obj, path)), [])
 		.flat()
-	if ( !withError ) ret.filter( prop => !prop.error )
+	if ( !withError ) return ret.filter( prop => !prop.error )
 	return ret
 }
 
@@ -28,7 +29,8 @@ export function explore(obj, path) {
 
 	if (Array.isArray(obj)) {
 		return obj.map((item, i) => {
-			return explore(item, path)
+			const ref = explore(item, path)
+			return ref
 		})
 	}
 
@@ -38,7 +40,7 @@ export function explore(obj, path) {
 	if (index == -1) {
 		const ret = { parent: obj, key: path }
 		// se non trova una corrispondenza con questa key vuol dire che non c'e' 
-		if (!(path in obj)) return ret.error = "undefined"
+		if (!(path in obj)) ret.error = KEY_NOT_FOUND
 		return ret
 	}
 
@@ -46,7 +48,7 @@ export function explore(obj, path) {
 	const key = path.slice(0, index)
 	const newPath = path.slice(index + 1)
 	// se non trova una corrispondenza con questa key vuol dire che non c'e' 
-	if (!(key in obj)) return { error: "undefined", parent: obj, key }
+	if (!(key in obj)) return { error: KEY_NOT_FOUND, parent: obj, key }
 	const value = obj[key]
 	return explore(value, newPath)
 }

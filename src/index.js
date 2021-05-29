@@ -4,7 +4,7 @@ import * as diff from "./diff"
 import * as explore from "./explore"
 import * as isType from "./isType"
 import * as jsonHash from "./jsonHash"
-
+import * as obj from "./object"
 
 import { log, LOG_LEVEL, LOG_TYPE } from "./log"
 import { debounce, delay } from "./timer"
@@ -18,6 +18,7 @@ export default {
 	...explore,
 	...isType,
 	...jsonHash,
+	obj
 }
 
 export {

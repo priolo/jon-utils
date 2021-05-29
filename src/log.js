@@ -35,7 +35,7 @@ const LOG_CMM = {
 
 const LOG_TYPE_STYLE = [
 	LOG_CMM.FgGreen,
-	LOG_CMM.FgBlue,
+	LOG_CMM.FgCyan,
 	LOG_CMM.FgYellow,
 	LOG_CMM.FgRed,
 ]
@@ -61,7 +61,7 @@ export const LOG_LEVEL = {
 }
 
 
-export function log(message, type, param = null) {
+export function log(message, type = LOG_TYPE.INFO, param = null) {
 	if ( log.options.enabled==false 
 		|| log.options.level == LOG_LEVEL.PROD
 		|| (log.options.level == LOG_LEVEL.DEV && type == LOG_TYPE.DEBUG)

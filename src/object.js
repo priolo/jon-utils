@@ -101,21 +101,17 @@ oppure se ignoreNull == true
  * @returns {boolean} Se l'oggetto1 è dentro l'oggetto2 
  */
 export function objectIsIn (obj1, obj2, ignoreNull=false) {
-
 	if ( ignoreNull && obj2==null ) return true;
 	if ( Object.is(obj1,obj2) ) return true;
-	
 	if ( _equalFunction(obj1,obj2) ) return true;
 	if ( _equalDate( obj1, obj2 ) ) return true;
 	if ( typeof obj1=="object" && typeof obj2=="object" ) {
 		for (var p in obj1) {
 			if ( !obj2.hasOwnProperty(p) ) return false;
-
 			if ( !objectIsIn ( obj1[p], obj2[p], ignoreNull ) ) return false;
 		}
 		return true;
 	}
-
 	return false;
 }
 

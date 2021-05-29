@@ -41,7 +41,7 @@ test('explore array', async () => {
 test('no path', async () => {
 	const cloneObj1 = cloneDeep(obj1)
 
-	exploreMap(cloneObj1, "no_exist").forEach(act => delete act.parent[act.key])
+	exploreMap(cloneObj1, "not_exist").forEach(act => delete act.parent[act.key])
 	expect(cloneObj1).toEqual(obj1)
 })
 
