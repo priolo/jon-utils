@@ -5,10 +5,11 @@ import * as explore from "./explore"
 import * as isType from "./isType"
 import * as jsonHash from "./jsonHash"
 import * as obj from "./object"
+import { EventEmitter } from "./EventEmitter"
+
 
 import { log, LOG_LEVEL, LOG_TYPE } from "./log"
 import { debounce, delay } from "./timer"
-
 
 
 export default {
@@ -18,10 +19,11 @@ export default {
 	...explore,
 	...isType,
 	...jsonHash,
-	obj
 }
 
 export {
+	obj,
 	log, LOG_LEVEL, LOG_TYPE,
 	debounce, delay,
+	EventEmitter,
 }
