@@ -26,8 +26,8 @@ export class EventEmitter {
 	}
 
 	off(event, callback) {
-		if (event == "*") events = Object.keys(this.eventsCallbacks)
-		if (Array.isArray(event)) return event.forEach(key => this.on(key, callback))
+		if (event == "*") event = Object.keys(this.eventsCallbacks)
+		if (Array.isArray(event)) return event.forEach(key => this.off(key, callback))
 
 		let callbacks = this.eventsCallbacks[event]
 		if (!callbacks) return
