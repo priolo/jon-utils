@@ -1,6 +1,6 @@
 {
   "name": "@priolo/jon-utils",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "generic utils",
   "main": "dist/index.js",
   "files": [
