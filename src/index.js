@@ -11,8 +11,11 @@ import { clipboard } from "./clipboard"
 import { log, LOG_LEVEL, LOG_TYPE } from "./log"
 import { debounce, delay } from "./timer"
 
+
+
 import * as GeoPosition from "./GeoPosition"
 import * as Validator from "./validator"
+import * as time from "./timer"
 
 
 export default {
@@ -33,4 +36,5 @@ export {
 	
 	GeoPosition,
 	Validator,
+	time,
 }
