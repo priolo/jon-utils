@@ -9,13 +9,14 @@ import { EventEmitter } from "./EventEmitter"
 import { clipboard } from "./clipboard"
 
 import { log, LOG_LEVEL, LOG_TYPE } from "./log"
-import { debounce, delay } from "./timer"
 
 
 
 import * as GeoPosition from "./GeoPosition"
 import * as Validator from "./validator"
 import * as time from "./timer"
+import * as func from "./func"
+
 
 
 export default {
@@ -30,11 +31,11 @@ export default {
 export {
 	obj,
 	log, LOG_LEVEL, LOG_TYPE,
-	debounce, delay,
+
 	EventEmitter,
 	clipboard,
-	
 	GeoPosition,
 	Validator,
 	time,
+	func,
 }

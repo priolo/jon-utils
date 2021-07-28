@@ -1,4 +1,8 @@
 
+
+/**
+ * Gestore generico per eventi
+ */
 export class EventEmitter {
 
 	constructor(events) {
@@ -46,6 +50,12 @@ export class EventEmitter {
 		})
 	}
 
+	/**
+	 * 
+	 * @param {string} event 
+	 * @param {any} payload 
+	 * @returns 
+	 */
 	emit(event, payload) {
 		let callbacks = this.eventsCallbacks[event]
 		if (!callbacks) return
