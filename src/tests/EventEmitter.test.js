@@ -5,16 +5,16 @@ test('EventEmitter', async () => {
 	const results = []
 	const emitter = new EventEmitter()
 
-	const callback1 = payload => {
-		results.push(`${payload.value} from callback1`)
+	const callback1 = event => {
+		results.push(`${event.payload.value} from callback1`)
 	}
-	const callback2 = payload => {
-		results.push(`${payload.value} from callback2`)
+	const callback2 = event => {
+		results.push(`${event.payload.value} from callback2`)
 	}
 	emitter.on("event1", callback1)
 	emitter.on("event1", callback2)
-	emitter.on("event2", payload => {
-		results.push(payload.value)
+	emitter.on("event2", event => {
+		results.push(event.payload.value)
 	})
 
 	emitter.emit("event1", { value: "emit:event1" })

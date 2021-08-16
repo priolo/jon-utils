@@ -1,3 +1,4 @@
+import { isEqualDeep } from "../equal"
 
 
 test('isEqualDeep', async () => {
