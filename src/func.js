@@ -1,5 +1,5 @@
 
-
+/** restituisce una funzione con una tabella di risposta ottimizzata per proprietà uguali */
 export function memoize(func) {
 	const results = {}
 	return (...args) => {

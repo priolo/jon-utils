@@ -145,5 +145,27 @@ export function clonePath(obj, path) {
 	return objClone;
 }
 
+/**
+ * Restituisce un oggetto che ha le proprietà di tutto l'array
+ * i params tutti uguali sono valorizzati
+ * i params diversi sono settati a null
+ * @param {*} objects 
+ * @returns 
+ */
+ export function minCommonProps(objects) {
+	return objects.reduce((objRef, obj) => {
+		const keysRef = new Set(Object.keys(objRef));
+		for ( const key in obj ) {
+			if (!(key in objRef)) {
+				objRef[key] = obj[key]
+			} else if (objRef[key] !== obj[key]) {
+				objRef[key] = null
+			}
+			keysRef.delete(key)
+		}
+		keysRef.forEach(key => objRef[key] = null)
+		return objRef
+	}, {})
+}
 
 

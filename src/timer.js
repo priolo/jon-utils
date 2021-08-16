@@ -1,7 +1,9 @@
 
 let timeoutIDs = {};
-
-
+/**
+ * attende un determinato tempo prima di eseguire una funzione
+ * se la funzione è richiamata resetta il tempo e riaspetta
+ */
 export function debounce(name, callback, delay) {
 	if (delay == 0) {
 		callback.apply(this, null);

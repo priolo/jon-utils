@@ -21,7 +21,6 @@ export function clone(obj) {
 
 /**
  * Deep merge from two object
- * not merge array
  */
 export function merge(obj1, obj2, replaceNulls = true) {
     if ( replaceNulls ) {
@@ -47,7 +46,7 @@ export function merge(obj1, obj2, replaceNulls = true) {
 }
 
 /**
- * 
+ * merge di due array
  * @param {any[]} arr1 
  * @param {any[]} arr2 
  */
