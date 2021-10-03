@@ -1,3 +1,4 @@
+import * as array from "./array"
 import * as util from "./ref"
 import * as equal from "./equal"
 import * as diff from "./diff"
@@ -38,4 +39,5 @@ export {
 	Validator,
 	time,
 	func,
+	array,
 }
