@@ -15,7 +15,7 @@ import { log, LOG_LEVEL, LOG_TYPE } from "./log"
 
 import * as GeoPosition from "./GeoPosition"
 import * as Validator from "./validator"
-import * as time from "./timer"
+import * as time from "./time"
 import * as func from "./func"
 
 
