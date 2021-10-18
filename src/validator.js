@@ -47,6 +47,9 @@ export function verify(value, option) {
 				return email(value)
 			case "url":
 				return url(value)
+			case "tel":
+				// https://stackoverflow.com/a/33561517/5224029
+				return /^[+]?[\s./0-9]*[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/g.test(value)
 			case "string":
 				if (typeof value != 'string') return false
 				return operator(value.trim().length, param)
