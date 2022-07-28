@@ -33,5 +33,9 @@
   },
   "jest": {
     "testURL": "http://localhost:5001"
+  },
+  "volta": {
+    "node": "18.6.0",
+    "npm": "8.15.0"
   }
 }

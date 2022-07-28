@@ -21,13 +21,16 @@ export function clone(obj) {
 
 /**
  * Deep merge from two object
+ * @param {*} obj1 oggetto 1 che ha la precedenza
+ * @param {*} obj2 oggetto 2 che copia le sue "props" se non ci so gia' nel primo oggetto
+ * @param {boolean} replaceNulls se true allora se il primo object ha una proprietà a null verrà eventualmente sostituita dal secondo oggetto
  */
 export function merge(obj1, obj2, replaceNulls = true) {
     if ( replaceNulls ) {
         if ( obj1==null && obj2!=null ) return obj2
         if ( obj1!=null && obj2==null ) return obj1
     }
-    // se ci sono primitive, non sono confrontabili, manda la secondna
+    // se ci sono primitive, non sono confrontabili, manda la seconda
     if (!isObject(obj1) || !isObject(obj2)) return obj1
     // se sono due array fai il merge con funzione apposita
     if (Array.isArray(obj1) && Array.isArray(obj2)) return mergeArray(obj1, obj2)
