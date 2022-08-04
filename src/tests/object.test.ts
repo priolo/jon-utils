@@ -1,7 +1,49 @@
-import { objectIsIn, minCommonProps, reduceObject, matchPath } from '../object'
+import { objectIsIn, minCommonProps, reduceObject, matchPath, getParentAndKey, PropertyRef } from '../object'
 
+
+const objTest = { 
+	par1: 1, 
+	par2: { 
+		par2_1: 21, 
+		par2_2: [
+			1, 
+			{ par2_2_3: "pippo" },
+			2,
+			3 
+		], 
+		par2_3: 23 
+	}, 
+}
 
 describe('util object', () => {
+
+
+	it('getParentAndKey base', async () => {
+		const propertyRef = getParentAndKey("par2.par2_3", objTest)
+        expect(propertyRef).toEqual<PropertyRef>({
+			key: "par2_3",
+			parent: objTest.par2,
+			value: 23
+		});
+    })
+
+	it('getParentAndKey array', async () => {
+		const propertyRef = getParentAndKey("par2.par2_2[0]", objTest)
+        expect(propertyRef).toEqual<PropertyRef>({
+			key: "0",
+			parent: objTest.par2.par2_2,
+			value: 1
+		});
+    })
+
+	it('getParentAndKey array2', async () => {
+		const propertyRef = getParentAndKey("par2.par2_2[1].par2_2_3", objTest)
+        expect(propertyRef).toEqual<PropertyRef>({
+			key: "par2_2_3",
+			parent: objTest.par2.par2_2[1],
+			value: "pippo"
+		});
+    })
 
 	it('objectIsIn base', async () => {
         let obj1 = { par1: 1, par2: { par2_1: 21, par2_2: 22 }};
@@ -54,11 +96,11 @@ describe('util object', () => {
 			param_3: "pluto"
 		}
 
-		const clone = reduceObject( obj, {}, (obj, acc, origin, paths )=>{
-			return true
-		})
-	
+		let clone = reduceObject( obj, {}, ()=>true )
 		expect(clone).toEqual(obj)
+
+		clone = reduceObject( objTest, {}, ()=>true )
+		expect(clone).toEqual(objTest)
 	})
 
 	// it("matchPath", async () => {
