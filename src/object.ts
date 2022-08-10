@@ -108,7 +108,7 @@ export function objectIsIn(obj1:any, obj2:any, ignoreNull = false):boolean {
 	}
 	return false;
 }
-function _equalFunction(f1, f2) {
+function _equalFunction(f1:any, f2:any): boolean {
 	if (typeof f1 != "function" || typeof f2 != "function") return false;
 	let f1s = f1.toString();
 	f1s = f1s.substring(f1s.indexOf("{"));
@@ -116,7 +116,7 @@ function _equalFunction(f1, f2) {
 	f2s = f2s.substring(f2s.indexOf("{"));
 	return f1s == f2s;
 }
-function _equalDate(d1, d2) {
+function _equalDate(d1:any, d2:any): boolean {
 	if (!(d1 instanceof Date) || !(d2 instanceof Date)) return false;
 	return d1.getTime() == d2.getTime();
 }
@@ -145,10 +145,10 @@ export function clonePath(obj:any, path:string):any {
  * e restituisce un oggetto che ha le proprietà comuni
  * - i params tutti uguali sono valorizzati
  * - i params diversi sono settati a null
- * @param {any[]} objects un array di oggetti da confrontare
- * @returns {any} un oggeto con tutte le proprietà comuni
+ * @param objects un array di oggetti da confrontare
+ * @returns un oggeto con tutte le proprietà comuni
  */
- export function minCommonProps(objects) {
+ export function minCommonProps(objects:any[]): any {
 	return objects.reduce((objRef, obj) => {
 		const keysRef = new Set(Object.keys(objRef));
 		for ( const key in obj ) {
@@ -164,68 +164,30 @@ export function clonePath(obj:any, path:string):any {
 	}, {})
 }
 
-export type CbReduceObject = (obj?:any, acc?:any, origin?:AnimationPlayState, paths?:string[] ) => boolean
-
-export function reduceObject( obj:any, acc:any, cb?:CbReduceObject, paths:string[]=[], origin?:any ): any {
-	for ( const key in obj ) {
-		acc[key] = _getCloneValue ( obj[key] )
-		const allPaths = [...paths, key]
-		const goDeep = cb ? cb( obj, acc, origin, allPaths ) : true
-		if ( isObject(acc[key]) && goDeep ) {
-			reduceObject( obj[key], acc[key], cb, allPaths, obj )
-		}
-	}
-	return acc
-}
-
-function _getCloneValue ( value ) {
-	if ( isObjectStrict(value) ) {
-		return {}
-	} else if ( Array.isArray(value)) {
-		return []
-	} else {
-		return value
-	}
-}
-
-/**
- * 
- * @param {string} path 
- * @param {string} template 
- */
-export function matchPath ( path, template ) {
-	const pathsT = template.split(".")
-	for ( const pathT in pathsT ) {
-		
-	}
-}
-
-
-
 /**
  * Fa un clone "deep" di un oggetto
- * @param {*} obj oggetto da clonare
+ * @param obj oggetto da clonare
  */
- export function cloneDeep(obj) {
+ export function cloneDeep(obj:any):any {
     if (obj == undefined) return undefined;
     return JSON.parse(JSON.stringify(obj));
 }
 
 /**
  * Fa un clone "weak" di un oggetto
- * @param {object} obj oggetto da clonare
+ * @param obj oggetto da clonare
  */
-export function clone(obj) {
+export function clone(obj:any):any {
     return { ...obj };
 }
 
 /**
  * Deep merge from two object
- * @param {*} obj1 oggetto 1 che ha la precedenza
- * @param {*} obj2 oggetto 2 che copia le sue "props" se non ci so gia' nel primo oggetto
- * @param {boolean} replaceNulls se true allora se il primo object ha una proprietà a null verrà eventualmente sostituita dal secondo oggetto
+ * @param obj1 oggetto 1 che ha la precedenza
+ * @param obj2 oggetto 2 che copia le sue "props" se non ci so gia' nel primo oggetto
+ * @param replaceNulls se true allora se il primo object ha una proprietà a null verrà eventualmente sostituita dal secondo oggetto
  */
-export function merge(obj1, obj2, replaceNulls = true) {
+export function merge(obj1:any, obj2:any, replaceNulls = true): any {
     if ( replaceNulls ) {
         if ( obj1==null && obj2!=null ) return obj2
         if ( obj1!=null && obj2==null ) return obj1
@@ -250,13 +212,86 @@ export function merge(obj1, obj2, replaceNulls = true) {
 
 /**
  * merge di due array
- * @param {any[]} arr1 
- * @param {any[]} arr2 
+ * fa il merge, se necessario, dei proprio "item"
+ * @param arr1 
+ * @param arr2 
  */
-export function mergeArray(arr1, arr2) {
+export function mergeArray(arr1:any[], arr2:any[]) {
     const ret:any[] = []
     for (let i = 0; i < arr1.length && i < arr2.length; i++) {
         ret[i] = merge(arr1[i], arr2[i])
     }
     return ret.concat(arr1.length > arr2.length ? arr1.slice(arr2.length) : arr2.slice(arr1.length))
+}
+
+/**
+ * @param source oggetto originale da copiare e trasformare
+ * @param dest oggetto destinazione risultato della trasfromazione dell'oggetto `source`
+ * @param root radice dell'oggetto `source`
+ * @param paths array di path per arrivare dal `root` al valore di `source'. 
+ * Di norma l'ultimo valore è: `source[paths[paths.length-1]]`
+ */
+export type CbReduceObject = (source:any, dest:any, root:any, paths:string[] ) => boolean
+
+/**
+ * Genera un oggetto "destinazione" (obj) da un oggetto "sorgente" (acc) 
+ * ciclando in deep tutti i suoi parametri
+ * La generazione passa per un callback (cb) che indica se mantenere o modificare una proprietà 
+ * @param source "coorente" oggetto sorgente da copiare e trasformare
+ * @param dest "corrente" oggetto destinazione risultato della trasfromazione
+ * @param callback callback che indica come trasformare ogni proprietà della sorgente
+ * @param paths (inserito in automatico) array di path per arrivare dal `root` al valore di `source'. 
+ * @param root (inserito in automatico) radice dell'oggetto `source`
+ * @returns 
+ */
+export function reduceObject( source:any, dest:any, callback?:CbReduceObject, paths:string[]=[], root?:any ): any {
+	for ( const key in source ) {
+		dest[key] = _getCloneValue ( source[key] )
+		const allPaths = [...paths, key]
+		const goDeep = callback ? callback( source, dest, root, allPaths ) : true
+		if ( isObject(dest[key]) && goDeep ) {
+			reduceObject( source[key], dest[key], callback, allPaths, source )
+		}
+	}
+	return dest
+}
+function _getCloneValue ( value ) {
+	if ( isObjectStrict(value) ) {
+		return {}
+	} else if ( Array.isArray(value)) {
+		return []
+	} else {
+		return value
+	}
+}
+
+/**
+ * Confronta un stringa "path" di proprietà con un template e restituisce true se c'e' corrispondenza
+ * @param path 
+ * @param template 
+ */
+export function matchPath ( source:string, template:string ): number {
+	const sPaths = source.split(".")
+	const tPaths = template.split(".")
+	return matchPathArray( sPaths, tPaths )
+}
+export function matchPathArray ( source:string[], template:string[], deep=0 ): number {
+	if ( template.length == 0 ) return deep
+	if ( source.length < template.length ) return -1
+	
+	const sPath = source[0]
+	const tPath = template[0]
+	deep++
+
+	if ( tPath == sPath || tPath === "*" ) {
+		return matchPathArray ( source.slice(1), template.slice(1), deep )
+	}
+	if ( tPath === "?" ) {
+		for ( let tries=0; tries<source.length-template.length+1; tries++ ) {
+			let res = matchPathArray ( source.slice(1+tries), template.slice(1), deep )
+			if ( res != -1) return tries+res
+		}
+	}
+
+	return -1
 }

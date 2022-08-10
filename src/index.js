@@ -1,5 +1,4 @@
 import * as array from "./array"
-import * as util from "./ref"
 import * as equal from "./equal"
 import * as diff from "./diff"
 import * as explore from "./explore"
@@ -21,7 +20,6 @@ import * as func from "./func"
 
 
 export default {
-	...util,
 	...equal,
 	...diff,
 	...explore,
