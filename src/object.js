@@ -1,6 +1,7 @@
+import {isObject, isObjectStrict} from "./isType";
 
 /**
- * Attraverso la "path stringa"  
+ * Attraverso la "path" (di tipo string)  
  * restituisce il valore della proprietà di un oggetto
  * @param {string} path il percorso (tramite punto) per identificare la proprietà 
  * @param {object} root object di partenza
@@ -17,7 +18,7 @@ export function getValueWithPath(path, root, def) {
 };
 
 /**
- * Assegna un valore tramite "path string" 
+ * Assegna un valore tramite la "path" (di tipo string) 
  * alla property di un oggetto 
  * @param {string} path la path delle sub-property
  * @param {object} root l'oggetto di partenza
@@ -86,7 +87,7 @@ export function getParentAndKey(path, root, bCreate) {
 
 
 /**
- * Permette di verificare se un oggetto ha gli stessi parametri di un altro
+ * Permette di verificare se un oggetto ha gli stessi parametri di un altro  
  * esempio:  
 `{ par1: 1: par2: { par2_1: 21, par2_2: 22 }}`  
 `{ par1: 1: par2: { par2_1: 21, par2_2: 22, par2_3: 23 }, par3: 3 }`  
@@ -114,7 +115,6 @@ export function objectIsIn(obj1, obj2, ignoreNull = false) {
 	}
 	return false;
 }
-
 function _equalFunction(f1, f2) {
 	if (typeof f1 != "function" || typeof f2 != "function") return false;
 	let f1s = f1.toString();
@@ -123,16 +123,17 @@ function _equalFunction(f1, f2) {
 	f2s = f2s.substring(f2s.indexOf("{"));
 	return f1s == f2s;
 }
-
 function _equalDate(d1, d2) {
 	if (!(d1 instanceof Date) || !(d2 instanceof Date)) return false;
 	return d1.getTime() == d2.getTime();
 }
 
+
 /**
  * Permette di clonare solo una specifica path
- * @param {string} path
- * @param {object} obj
+ * @param {object} obj Oggetto da cui prendere le proprietà
+ * @param {string} path path da clonare. Es.: "param1.param2"
+ * @returns {object} Oggetto con le proprietà clonate
  */
 export function clonePath(obj, path) {
 	let objClone = { ...obj };
@@ -145,12 +146,14 @@ export function clonePath(obj, path) {
 	return objClone;
 }
 
+
 /**
- * Restituisce un oggetto che ha le proprietà di tutto l'array
- * i params tutti uguali sono valorizzati
- * i params diversi sono settati a null
- * @param {*} objects 
- * @returns 
+ * Confronta un array di oggetti
+ * e restituisce un oggetto che ha le proprietà comuni
+ * - i params tutti uguali sono valorizzati
+ * - i params diversi sono settati a null
+ * @param {any[]} objects un array di oggetti da confrontare
+ * @returns {any} un oggeto con tutte le proprietà comuni
  */
  export function minCommonProps(objects) {
 	return objects.reduce((objRef, obj) => {
@@ -168,4 +171,47 @@ export function clonePath(obj, path) {
 	}, {})
 }
 
+
+/**
+ * 
+ * @param {*} obj 
+ * @param {*} acc 
+ * @param {(obj:any, acc:any, key:string, paths:string[], origin:AnimationPlayState, fullPath:string ) => boolean} cb 
+ * @param {string[]} paths 
+ * @param {*} origin 
+ * @returns 
+ */
+export function reduceObject( obj, acc, cb, paths=[], origin ) {
+	for ( const key in obj ) {
+		acc[key] = _getCloneValue ( obj[key] )
+		const allPaths = [...paths, key]
+		const goDeep = cb ? cb( obj, acc, origin, allPaths ) : true
+		if ( isObject(acc[key]) && goDeep ) {
+			reduceObject( obj[key], acc[key], cb, allPaths, obj )
+		}
+	}
+	return acc
+}
+
+function _getCloneValue ( value ) {
+	if ( isObjectStrict(value) ) {
+		return {}
+	} else if ( Array.isArray(value)) {
+		return []
+	} else {
+		return value
+	}
+}
+
+/**
+ * 
+ * @param {string} path 
+ * @param {string} template 
+ */
+export function matchPath ( path, template ) {
+	const pathsT = template.split(".")
+	for ( const pathT in pathsT ) {
+		
+	}
+}
 
