@@ -8,7 +8,7 @@ import {isObject, isObjectStrict} from "./isType";
  * @param root object di partenza
  * @param def da usare in caso se non si riesca a prelevare il valore
  */
-export function getValueWithPath(path:string, root:any, def:any) {
+export function getValueWithPath<T>(path:string, root:any, def:T): T {
 	try {
 		let { parent, value } = getParentAndKey(path, root);
 		if (typeof value === "function") return value.bind(parent);

@@ -5,8 +5,7 @@ test('diff null', async () => {
 	const obj1 = { par1: "nullable" }
 	const obj2 = { par1: null }
 	const delta = diff(obj1, obj2)
-	const deltaPre = { par1: null }
-	expect(deltaPre).toEqual(delta)
+	expect(delta).toEqual({ par1: null })
 })
 
 test('no diff object', async () => {

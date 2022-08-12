@@ -1,5 +1,5 @@
 import { explore, exploreMap, include, includeMap } from "../explore"
-import { cloneDeep } from "../ref"
+import {cloneDeep} from "../object"
 
 
 test('explore simple', async () => {

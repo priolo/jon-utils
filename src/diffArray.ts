@@ -1,32 +1,47 @@
 import { isEqualDeep } from "./equal"
 
-
-function find(arr, item, start, max = 6) {
-    for (let i = 0; i < arr.length && i < max; i++) {
+/**
+ * confronta in "deep" l'oggetto "item" con gli elementi dell'array "arr" e restituisce l'indice se lo trova altrimenti -1
+ * @param arr array da controllare
+ * @param item item da confrontare
+ * @param start da dove deve cominciare
+ * @param max quanti confronti al massimo deve fare
+ * @returns l'indice dell'item se lo trova oppure -1
+ */
+function find(arr:any[], item:any, start=0, max=6) {
+    for (let i = start; i < arr.length && i < max; i++) {
         const itemCur = arr[i]
         if (isEqualDeep(item, itemCur)) return i
     }
     return -1
 }
 
+interface Action {
+	type:string,
+	val?:any,
+	from?:number,
+	to?:number,
+}
+
 /**
  * restituisce le "regole" per trasformare arr1 in arr2
  * queste regole comprendolo lo "spostamento"
- * @param {Array} arr1 
- * @param {Array} arr2 
- * @returns 
+ * @param a1 array iniziale 
+ * @param arr2 array risultato
+ * @returns un array di `Action` che permettono di "trasformare" `arr1` in `arr2` 
  */
-export function diffArray(a1, arr2) {
-    const delta = []
+export function diffArray(a1:any[], arr2:any[]) {
+    const delta:Action[] = []
     const arr1 = [...a1]
     let i = 0
 
+	// ciclo arr2
     while (i < arr2.length) {
-        let act = null
+        let act:Action|null = null
 
-        // non ci sono piu' item in arr1
+        // in "arr1" gli "item" sono finiti: action => inserire i restati item di arr2
         if (i >= arr1.length) {
-            const act = { type: "add", val: arr2[i] }
+            const act:Action = { type: "add", val: arr2[i] }
             delta.push(act)
             exeArray(act, arr1)
             i++
@@ -57,25 +72,30 @@ export function diffArray(a1, arr2) {
             delta.push(act)
             exeArray(act, arr1)
 
-            // è in un altra posizione
+        // è in un altra posizione
         } else if (index1in2 != -1) {
             act = { type: "mov", from: i, to: index1in2 }
             delta.push(act)
             exeArray(act, arr1)
         }
     }
+	// se arr2 è piu' piccolo di arr1 allora tronco la lunghezza
     if (arr2.length < arr1.length) {
         delta.push({ type: "len", val: arr2.length })
     }
+	// restituisco le `Action`
     return delta
 }
 
 /**
- * Esegue un "action" su un array
- * @param {*} action 
- * @param {Array} arr 
+ * Esegue un `Action` su un array
+ * @param action azione da eseguire
+ * @param arr array sulla quale applicare l'`Action`
  */
-function exeArray(action, arr) {
+function exeArray(action:Action, arr:any[]) {
+	if ( action.to==null ) action.to = 0
+	if ( action.from==null ) action.from = 0
+
     switch (action.type) {
         case "del":
             arr.splice(action.from, 1)
@@ -101,12 +121,13 @@ function exeArray(action, arr) {
 }
 
 /**
- * 
- * @param {Array} a 
- * @param {Array} delta 
- * @returns 
+ * aggiunge ad un array "a" le `Action` presenti nell'array "delta" e restituisce il risultato
+ * tipicamente si usa per riconvertire un array in un altro grazie al risultato della funziona "diffArray"
+ * @param a array da trasformare
+ * @param delta array di `Action`
+ * @returns l'array "a" con applicate le trasformazioni
  */
-export function addArray(a, delta) {
+export function addArray(a:any[], delta:Action[]) {
     const arr = [...a]
     delta.forEach(action => exeArray(action, arr))
     return arr

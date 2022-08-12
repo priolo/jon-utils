@@ -5,15 +5,19 @@ import { isEqual } from "./equal"
 import { isObject } from "./isType"
 
 
+diff.NO_DIFFERENCE_KEY = "__no-difference__"
+
 
 /**
- * restituisce un oggetto che è la differenza 
- * GESTIRE gli oggetti: Date e altri oggetti "nativi"
- * GESTIRE BENE gli ARRAY
- * @param {object} obj1 
- * @param {object} obj2 
+ * restituisce un oggetto che è la differenza. 
+ * Questo oggetto restituito indica come passare da `obj1` a `obj2` 
+ * > da fare:  
+ * > GESTIRE gli oggetti: Date e altri oggetti "nativi"
+ * > GESTIRE BENE gli ARRAY
+ * @param obj1 oggetto di partenza
+ * @param obj2 oggetto a cui si vuole arrivare applicando la differenza restituita con `obj1`
  */
-export function diff(obj1, obj2) {
+export function diff(obj1:any, obj2:any): any {
 
     // se sono primitive allora controlla se sono uguali e se lo sono restituisci null
     if (!isObject(obj1) || !isObject(obj2)) {
@@ -30,7 +34,7 @@ export function diff(obj1, obj2) {
         return obj2
     }
 
-    const ret = {};
+    const ret:any = {};
 
     for (let key in obj1) {
         // se 2 ha la proprietà di 1 presa in esame
@@ -59,15 +63,14 @@ export function diff(obj1, obj2) {
     return Object.keys(ret).length == 0 ? diff.NO_DIFFERENCE_KEY : ret;
 }
 
-diff.NO_DIFFERENCE_KEY = "__no-difference__"
-
 /**
- * Aggiunge ad un json la differenza 
- * in maniera da ripristinare il valore precedente
- * @param {*} obj 
- * @param {*} delta 
+ * Aggiunge all'oggetto `obj` le proprietà dell'oggetto `delta` 
+ * e crea quindi un nuovo oggetto.
+ * Tipicamente per ripristinare un oggetto con le sua differenze della funzione `diff`
+ * @param obj oggetto a cui applicare il `delta`
+ * @param delta un oggetto che contiene le `diff` che verranno applicate
  */
-export function add(obj, delta) {
+export function add(obj:any, delta:any):any {
 
     if (!isObject(delta)) {
         return delta;

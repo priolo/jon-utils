@@ -3,19 +3,19 @@ import { isObject } from "./isType"
 
 /**
  * Fa un controllo "weak" tra due oggetti
- * @param {object} v1 oggetto da confrontare
- * @param {object} v2 oggetto da confrontare
+ * @param v1 oggetto da confrontare
+ * @param v2 oggetto da confrontare
  */
- export function isEqual(v1, v2) {
+ export function isEqual(v1:any, v2:any) {
     return Object.is(v1, v2);
 }
 
 /**
  * Fa un controllo "deep" tra due oggetti
- * @param {object} v1 
- * @param {object} v2 
+ * @param v1 oggetto da confrontare
+ * @param v2 oggetto da confrontare
  */
-export function isEqualDeep(v1, v2, options) {
+export function isEqualDeep(v1:any, v2:any) {
     if (!isObject(v1) || !isObject(v2)) {
         return isEqual(v1, v2);
     }

@@ -2,9 +2,9 @@
 
 /**
  * Copia in clipboard un testo
- * @param {string} text da copiare nella clipboard
+ * @param text da copiare nella clipboard
  */
- function clipboardSet(text) {
+ function clipboardSet(text:string): void {
 	const el = document.createElement('textarea');
 	el.value = text;
 	document.body.appendChild(el);
@@ -16,7 +16,7 @@
 /**
  * Restituisce il testo contenuto nella clipboard
  */
-async function clipboardGet() {
+async function clipboardGet(): Promise<string> {
 	return await navigator.clipboard.readText();
 }
 
