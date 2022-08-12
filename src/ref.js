@@ -21,6 +21,9 @@ export function clone(obj) {
 
 /**
  * Deep merge from two object
+ * @param {Object} obj1
+ * @param {Object} obj2
+ * @param {Boolean} replaceNulls
  */
 export function merge(obj1, obj2, replaceNulls = true) {
     if ( replaceNulls ) {
