@@ -21,7 +21,6 @@ import * as func from "./func"
 
 export default {
 	...equal,
-	...diff,
 	...explore,
 	...isType,
 	...jsonHash,
@@ -38,4 +37,5 @@ export {
 	time,
 	func,
 	array,
+	diff,
 }
