@@ -1,5 +1,6 @@
 
 let timeoutIDs = {};
+
 /**
  * attende un determinato tempo prima di eseguire una funzione
  * se la funzione è richiamata resetta il tempo e riaspetta
@@ -45,7 +46,9 @@ export function waitTimeout(timeout, promise) {
 	})
 }
 
-/** Restituisce un "iterator" con le date comprese tra "start" ed "end" incrementate dello "step" */
+/** 
+ * Restituisce un "iterator" con le date comprese tra "start" ed "end" incrementate dello "step" 
+ * */
 export function* forDates(start, end, step) {
 	const dateCount = new Date(start < end ? start : end)
 	const dateEnd = new Date(start > end ? start : end)

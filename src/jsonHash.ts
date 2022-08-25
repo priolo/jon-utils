@@ -7,10 +7,10 @@
  * specific type (e.g. function), that are not supported
  * by JSON.
  *
- * @param {Object} obj JSON object
- * @returns {String} stringified JSON object.
+ * @param obj JSON object
+ * @returns stringified JSON object.
  */
- export function jsonStream(obj) {
+ export function jsonStream(obj:any):string {
 	if (Array.isArray(obj)) {
 		return JSON.stringify(obj.map(i => jsonStream(i)))
 	} else if (typeof obj === 'string') {
@@ -27,10 +27,9 @@
 
 /**
  * restituisce un numero che indica l'hash della stringa passata come parametro
- * @param {*} str 
- * @returns 
+ * @param str stringa da cui calcolare l'hash 
  */
-export function hashCode (str) {
+export function hashCode (str:string):number {
 	let hash = 0, i, chr;
 	if (str.length === 0) return hash;
 	for (i = 0; i < str.length; i++) {

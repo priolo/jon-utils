@@ -1,5 +1,12 @@
 
 const TILE_SIZE = 256
+
+
+type GMPosition = {
+	x: number,
+	y: number,
+}
+
 /**
  * Restituisce un punto della mappa di google map secondo la loro proiezione
  * vedere anche:
@@ -8,7 +15,7 @@ const TILE_SIZE = 256
  * @param {*} lng 
  * @returns {x:number, y:number}
  */
-export function gmPoint(lat, lng) {
+export function gmPoint(lat:number, lng:number): GMPosition {
 	let siny = Math.sin((lat * Math.PI) / 180);
 
 	// Truncating to 0.9999 effectively limits latitude to 89.189. This is
@@ -25,13 +32,9 @@ export function gmPoint(lat, lng) {
  * Restituisce la distanza (in km) tra due posizioni longitude/latitude
  * vedere amche:
  * https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
- * @param {*} lat1 
- * @param {*} lon1 
- * @param {*} lat2 
- * @param {*} lon2 
  * @returns distanza in KM
  */
-export function distance(lat1, lon1, lat2, lon2) {
+export function distance(lat1:number, lon1:number, lat2:number, lon2:number):number {
 	var R = 6371; // Radius of the earth in km
 	var dLat = deg2rad(lat2 - lat1)  // deg2rad below
 	var dLon = deg2rad(lon2 - lon1)
@@ -44,6 +47,9 @@ export function distance(lat1, lon1, lat2, lon2) {
 	return distance
 }
 
-function deg2rad(deg) {
+/**
+ *	Converte da gradi a radianti
+ **/
+function deg2rad(deg:number):number {
 	return deg * (Math.PI / 180)
 }

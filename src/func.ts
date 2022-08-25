@@ -1,6 +1,8 @@
 
-/** restituisce una funzione con una tabella di risposta ottimizzata per proprietà uguali */
-export function memoize(func) {
+/** 
+ * restituisce una funzione con una tabella di risposta ottimizzata per proprietà uguali 
+ * */
+export function memoize(func: (...args: any[]) => any) {
 	const results = {}
 	return (...args) => {
 		const argsKey = JSON.stringify(args)

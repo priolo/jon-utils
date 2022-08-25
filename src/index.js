@@ -3,28 +3,19 @@ import * as equal from "./equal"
 import * as diff from "./diff"
 import * as explore from "./explore"
 import * as isType from "./isType"
-import * as jsonHash from "./jsonHash"
+import * as json from "./jsonHash"
 import * as obj from "./object"
 import { EventEmitter } from "./EventEmitter"
 import { clipboard } from "./clipboard"
 
 import { log, LOG_LEVEL, LOG_TYPE } from "./log"
 
-
-
 import * as GeoPosition from "./GeoPosition"
 import * as Validator from "./validator"
 import * as time from "./time"
 import * as func from "./func"
 
-
-
-export default {
-	...equal,
-	...explore,
-	...isType,
-	...jsonHash,
-}
+const eq = { ...equal, ...isType} 
 
 export {
 	obj,
@@ -38,4 +29,7 @@ export {
 	func,
 	array,
 	diff,
+	explore,
+	json,
+	eq,
 }

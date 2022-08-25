@@ -61,7 +61,7 @@ export const LOG_LEVEL = {
 }
 
 
-export function log(message, type = LOG_TYPE.INFO, param = null) {
+export function log(message:string, type = LOG_TYPE.INFO, param?:string) {
 	if ( log.options.enabled==false 
 		|| log.options.level == LOG_LEVEL.PROD
 		|| (log.options.level == LOG_LEVEL.DEV && type == LOG_TYPE.DEBUG)
