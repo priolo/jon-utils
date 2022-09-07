@@ -1,5 +1,7 @@
-import { objectIsIn, minCommonProps, reduceObject, matchPath, getParentAndKey, PropertyRef, mergeArray, merge, cloneDeep, clone, matchPathArray } from '../object'
-
+import { objectIsIn, minCommonProps, reduceObject, 
+	matchPath, getParentAndKey, PropertyRef, 
+	mergeArray, merge, cloneDeep, 
+	clone, matchPathArray } from '../../object/obj'
 
 const objTest = { 
 	par1: 1, 
@@ -16,7 +18,6 @@ const objTest = {
 }
 
 describe('util object', () => {
-
 
 	it('getParentAndKey base', async () => {
 		const propertyRef = getParentAndKey("par2.par2_3", objTest)

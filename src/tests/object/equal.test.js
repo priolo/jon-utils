@@ -1,4 +1,4 @@
-import { isEqualDeep } from "../equal"
+import { isEqualDeep } from "../../object/equal"
 
 
 test('isEqualDeep', async () => {
