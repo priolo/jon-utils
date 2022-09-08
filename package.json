@@ -1,36 +1,34 @@
 {
+  "author": "Iorio Ivano",
   "name": "@priolo/jon-utils",
   "version": "0.3.1",
   "description": "generic utils",
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "test": "jest dist/test",
-    "test-watch": "jest dist/test --watch",
-    "build": "cross-env NODE_ENV=production babel src -d dist --copy-files --extensions .ts",
-    "build-watch": "cross-env NODE_ENV=development babel src -d dist -w -s --copy-files --extensions .ts",
-    "pub": "npm publish --access public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/priolo/jon-utils.git"
   },
-  "author": "Iorio Ivano",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/priolo/jon-utils/issues"
   },
   "homepage": "https://github.com/priolo/jon-utils#readme",
+  "main": "dist/index.js",
+  "source": "src/index.js",
+  "type": "module",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "test": "jest src/tests",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "pub": "npm publish --access public"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-typescript": "^7.18.6",
-    "cross-env": "^7.0.3",
-    "jest": "^26.6.3",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
     "@types/jest": "^28.1.6"
   },
   "jest": {

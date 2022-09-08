@@ -1,5 +1,6 @@
 
-type CallBack = ({event:string, payload:any}) => void;
+type cazzo = {event:string, payload:any}
+type CallBack = (cazzo) => void;
 
 /**
  * Gestore generico per eventi per il browser.
