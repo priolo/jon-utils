@@ -1,4 +1,3 @@
-// vite.config.js
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 
@@ -6,14 +5,21 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
-      name: 'jon-utils',
+      name: 'index',
       // the proper extensions will be added
-      fileName: 'jon-utils'
+      fileName: 'index'
     },
-    rollupOptions: {
-      output: {
-		dir: './dist',
-      }
-    }
+	
+	outDir: resolve(__dirname, './dist'),
+    // rollupOptions: {
+    //   output: {
+	// 	dir: './dist',
+    //   }
+    // }
   }
+  // resolve: {
+    //     alias: [
+    //         // put your alias here
+    //     ]
+    // },
 })

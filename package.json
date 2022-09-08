@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/priolo/jon-utils#readme",
   "main": "dist/index.js",
-  "source": "src/index.js",
+  "module": "dist/index.umd.cjs",
+  "types": "dist/index.d.ts",
   "type": "module",
   "files": [
     "dist",
@@ -24,7 +25,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "pub": "npm publish --access public"
+    "pub": "npm publish --access public",
+    "build:types": "tsc -m ESNext -t ESNext -d --isolatedModules false  --moduleResolution node --esModuleInterop --jsx react --allowJs --outFile dist/index.js src/index.js",
+    "build2:types": "tsc -d --isolatedModules false --declaration --emitDeclarationOnly --outFile dist/index.d.ts --allowJs src/index.ts"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
