@@ -2,36 +2,38 @@
   "name": "@priolo/jon-utils",
   "version": "0.3.1",
   "description": "generic utils",
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "test": "jest dist/test",
-    "test-watch": "jest dist/test --watch",
-    "build": "cross-env NODE_ENV=production babel src -d dist --copy-files --extensions .ts",
-    "build-watch": "cross-env NODE_ENV=development babel src -d dist -w -s --copy-files --extensions .ts",
-    "pub": "npm publish --access public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/priolo/jon-utils.git"
-  },
   "author": "Iorio Ivano",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/priolo/jon-utils/issues"
   },
   "homepage": "https://github.com/priolo/jon-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priolo/jon-utils.git"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/module.js",
+  "scripts": {
+    "test": "jest src/tests",
+    "test-watch": "jest dist/test --watch",
+		"start": "parcel watch",
+		"build": "parcel build",
+		"link": "npm link C:/Users/iorio/Desktop/tests/biblio-parcel/node_modules/react",
+		"pub": "npm publish --access public"
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.4.11"
+	},
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-typescript": "^7.18.6",
-    "cross-env": "^7.0.3",
     "jest": "^26.6.3",
-    "@types/jest": "^28.1.6"
+    "@types/jest": "^28.1.6",
+    "parcel": "^2.7.0"
   },
   "jest": {
     "testURL": "http://localhost:5001"
