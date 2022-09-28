@@ -1,5 +1,7 @@
 
-type CallBack = ({event:string, payload:any}) => void;
+type EventMsg = {event:string, payload:any}
+type CallBack = (msg:EventMsg) => void;
+type EventsDictionary = {[name:string]:CallBack[]}
 
 /**
  * Gestore generico per eventi per il browser.
@@ -13,16 +15,16 @@ export class EventEmitter {
 	constructor(events:string[]) {
 		if (Array.isArray(events) && events) {
 			this.eventsCallbacks = events.reduce((acc, event) => {
-				acc[event] = []
+				acc[event] = [] 
 				return acc
-			}, {})
+			}, {} as EventsDictionary)
 		}
 	}
 
 	/**
 	 * Una dictionary di eventi e i relativi listener
 	 */
-	eventsCallbacks:{[name:string]:CallBack[]} = {}
+	eventsCallbacks:EventsDictionary = {}
 
 	/**
 	 * Aggiunge un listener per un evento
