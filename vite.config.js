@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   build: {
@@ -9,17 +10,17 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: 'index'
     },
-	
-	outDir: resolve(__dirname, './dist'),
+    outDir: resolve(__dirname, './dist'),
     // rollupOptions: {
     //   output: {
-	// 	dir: './dist',
+    // 	dir: './dist',
     //   }
     // }
-  }
+  },
+  plugins: [dts()]
   // resolve: {
-    //     alias: [
-    //         // put your alias here
-    //     ]
-    // },
+  //     alias: [
+  //         // put your alias here
+  //     ]
+  // },
 })
