@@ -1,22 +1,37 @@
 
-
-export function email(value) {
+/**
+ * Verifica che il parametro stringa passato sia un email ben formattata
+ * @param value 
+ */
+export function email(value:string) {
 	if (/^[^\s@]+@[^\s@]+$/.test(value)) return true
 	return false
 }
 
-export function obligatory(value) {
+/**
+ * la stringa passata non deve essere null o vuota
+ * @param value 
+ */
+export function obligatory(value:string) {
 	if (value != null && value.trim().length > 0) return true
 	return false
 }
 
-export function obligatoryArray(value) {
+/**
+ * il parametro deve essere un array non vuoto
+ * @param value 
+ */
+export function obligatoryArray(value:Array<any>) {
 	if (Array.isArray(value) && value.length > 0) return true
 	return false
 }
 
 // https://stackoverflow.com/a/5717133/5224029
-export function url(value) {
+/**
+ * La stringa passata deve essere un URL ben formattato
+ * @param value 
+ */
+export function url(value:string) {
 	var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
 		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
 		'((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -27,13 +42,16 @@ export function url(value) {
 	return false
 }
 
+type VerifyType = "email" | "url" | "tel" | "string" | "array" | "int" | "number" | string
+
 /**
- * 
- * @param {object} value 
- * @param {string} option 
+ * Passa un valore che in base a `option` deve essere verificato
+ * @param option puo' essere una string che indica il tipo di verifica (se c'e' "?" all'inizio allora è opzionale)
+ * oppure un array di string quindi vengono controllate tutte
+ * oppure un `dictionary` che permette di controllare di `value` le singole proprietà
  * @returns 
  */
-export function verify(value, option) {
+export function verify(value:any, option:VerifyType | string[] | object) {
 	if (!option) return true
 
 	if (typeof option == "string") {
