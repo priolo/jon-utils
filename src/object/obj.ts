@@ -167,6 +167,7 @@ export function clonePath(obj:any, path:string):any {
 /**
  * Fa un clone "deep" di un oggetto
  * @param obj oggetto da clonare
+ * > ATTENZIONE: gli `undefined` vengono trasformati in `null`
  */
  export function cloneDeep(obj:any):any {
     if (obj == undefined) return undefined;
