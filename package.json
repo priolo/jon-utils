@@ -1,7 +1,7 @@
 {
   "author": "Iorio Ivano",
   "name": "@priolo/jon-utils",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "generic utils",
   "repository": {
     "type": "git",
@@ -12,18 +12,24 @@
     "url": "https://github.com/priolo/jon-utils/issues"
   },
   "homepage": "https://github.com/priolo/jon-utils#readme",
+
+
+  "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
-  "type": "module",
   "types": "./dist",
   "files": [
     "./dist"
   ],
+
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:watch": "vite build --watch",
     "preview": "vite preview",
     "test": "jest --watchAll=false src/tests",
+    "prepublishOnly": "npm run build",
     "pub": "npm publish --access public"
   },
   "devDependencies": {
