@@ -1,4 +1,4 @@
-import { isEqualDeep } from "./equal"
+import { isEqualDeep } from "./equal.js"
 
 /**
  * confronta in "deep" l'oggetto "item" con gli elementi dell'array "arr" e restituisce l'indice se lo trova altrimenti -1

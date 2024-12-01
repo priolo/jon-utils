@@ -1,8 +1,8 @@
 /* eslint eqeqeq: "off" */
 
-import { addArray, diffArray } from "./diffArray";
-import { isEqual } from "./equal"
-import { isObject } from "./isType"
+import { addArray, diffArray } from "./diffArray.js";
+import { isEqual } from "./equal.js"
+import { isObject } from "./isType.js"
 
 
 diff.NO_DIFFERENCE_KEY = "__no-difference__"

@@ -1,5 +1,5 @@
-import { isString, isObject } from "./isType";
-import { merge } from "./obj";
+import { isString, isObject } from "./isType.js";
+import { merge } from "./obj.js";
 
 export const KEY_NOT_FOUND = "key-not-found"
 

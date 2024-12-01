@@ -1,4 +1,4 @@
-import { isObject } from "./isType"
+import { isObject } from "./isType.js"
 
 
 /**
@@ -6,8 +6,8 @@ import { isObject } from "./isType"
  * @param v1 oggetto da confrontare
  * @param v2 oggetto da confrontare
  */
-export function isEqual(v1: any, v2: any, options: any) {
-    if ( options.ignoreUndefined && v1 == null && v2 == null)  return true
+export function isEqual(v1: any, v2: any, options?: any) {
+    if ( options?.ignoreUndefined && v1 == null && v2 == null)  return true
     return Object.is(v1, v2);
 }
 

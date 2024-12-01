@@ -1,6 +1,10 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"outDir": "./dist",
+		"rootDir": "./src",
 		"useDefineForClassFields": true,
 		"lib": [
 			"DOM",
@@ -9,20 +13,21 @@
 		],
 		"allowJs": true,
 		"skipLibCheck": true,
-		"esModuleInterop": false,
+		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"strict": false,
 		"forceConsistentCasingInFileNames": true,
-		"module": "ESNext",
-		"moduleResolution": "Node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"noEmit": true,
-		"jsx": "react-jsx",
 		"declaration": true,
-		"declarationMap": true
+		"declarationMap": true,
 	},
 	"include": [
-		"./src"
+		"src"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"./src/tests/**/*"
 	]
 }

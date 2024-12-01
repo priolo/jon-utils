@@ -1,4 +1,4 @@
-import {isObject, isObjectStrict} from "./isType";
+import {isObject, isObjectStrict} from "./isType.js";
 
 
 
