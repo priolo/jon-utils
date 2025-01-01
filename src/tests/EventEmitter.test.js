@@ -33,3 +33,20 @@ test('EventEmitter', async () => {
 	])
 
 })
+
+test('evento speciale $', async () => {
+	
+	const results = []
+	const emitter = new EventEmitter()
+
+	emitter.on("$", event => {
+		results.push(event.payload.value)
+	})
+	emitter.emit("event1", { value: "emit:event1" })
+	emitter.emit("event2", { value: "emit:event2" })
+
+	expect(results).toEqual([
+		"emit:event1",
+		"emit:event2",
+	])
+})
