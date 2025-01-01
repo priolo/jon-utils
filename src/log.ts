@@ -38,26 +38,29 @@ const LOG_TYPE_STYLE = [
 	LOG_CMM.FgCyan,
 	LOG_CMM.FgYellow,
 	LOG_CMM.FgRed,
+	LOG_CMM.FgMagenta,
 ]
 
 const LOG_TYPE_LABEL = [
 	"DEBUG: ",
 	"INFO: ",
 	"WARNING: ",
-	"ERROR: "
+	"ERROR: ",
+	"FATAL: ",
 ]
 
-export const LOG_TYPE = {
-	DEBUG: 0,
-	INFO: 1,
-	WARNING: 2,
-	ERROR: 3,
+export enum LOG_TYPE {
+	DEBUG = 0,
+	INFO = 1,
+	WARNING = 2,
+	ERROR = 3,
+	FATAL = 4,
 }
 
-export const LOG_LEVEL = {
-	PROD: 0,
-	DEV: 1,
-	DEBUG: 3,
+export enum LOG_LEVEL {
+	PROD = 0,
+	DEV = 1,
+	DEBUG = 3,
 }
 
 
@@ -78,4 +81,3 @@ log.options = {
 	level: LOG_LEVEL.DEV,
 	enabled: true,
 }
-
