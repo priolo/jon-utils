@@ -1,6 +1,9 @@
 
-type EventMsg = { event: string, payload: any }
-type CallBack = (msg: EventMsg) => void;
+export interface EventMessage { 
+	event: string 
+	payload: any
+}
+type CallBack = (msg: EventMessage) => void;
 type EventsDictionary = { [name: string]: CallBack[] }
 
 
@@ -62,7 +65,7 @@ export class EventEmitter {
 	 * se event == null elimina tutti i listener
 	 */
 	offAll(event?: string) {
-		if ( !event ) {
+		if (!event) {
 			this.eventsCallbacks = {}
 			return
 		}
@@ -83,10 +86,12 @@ export class EventEmitter {
 	 * Permette di emettere un evento
 	 */
 	emit(event: string, payload: any) {
-		const callbacks = (this.eventsCallbacks[event] ?? []).concat( this.eventsCallbacks["$"] ?? [] )
+		const callbacks = (this.eventsCallbacks[event] ?? []).concat(this.eventsCallbacks["$"] ?? [])
 		for (const callback of callbacks) {
 			callback({ event, payload })
 		}
 	}
+
+
 
 }
